@@ -3,6 +3,7 @@ import {
   createBrowserRouter, Link, RouterProvider
 } from 'react-router'
 import Table from './components/ui/Table';
+import Pagination from './components/ui/Pagination/Pagination';
 
 const theme = createTheme({
     typography: {
@@ -14,32 +15,40 @@ const router = createBrowserRouter([
   {
     path: '/',
     element: (
-      <Table columns={[
-        {
-          id: 'tugas',
-          label: 'Tugas',
-        },
-        {
-          id: 'status',
-          label: 'Status',
-        }
-      ]} data={[
-        {
-          id: 1,
-          tugas: 'Tugas 1',
-          status: 'Belum Selesai',
-        },
-        {
-          id: 2,
-          tugas: 'Tugas 2',
-          status: 'Belum Selesai',
-        },
-        {
-          id: 3,
-          tugas: 'Tugas 3',
-          status: 'Selesai',
-        },
-      ]} />
+      <Box>
+        <Table
+          columns={[
+            {
+              id: 'tugas',
+              label: 'Tugas',
+            },
+            {
+              id: 'status',
+              label: 'Status',
+            },
+          ]}
+          data={[
+            {
+              id: 1,
+              tugas: 'Tugas 1',
+              status: 'Belum Selesai',
+            },
+            {
+              id: 2,
+              tugas: 'Tugas 2',
+              status: 'Belum Selesai',
+            },
+            {
+              id: 3,
+              tugas: 'Tugas 3',
+              status: 'Selesai',
+            },
+          ]}
+        />
+        <Pagination count={10} onChange={(event, page) => {
+          console.log("page: ", page)
+        }} />
+      </Box>
     ),
   },
   {
