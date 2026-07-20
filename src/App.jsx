@@ -1,13 +1,8 @@
-import {
-  Box,
-  createTheme,
-  CssBaseline,
-  ThemeProvider,
-  Typography,
-} from '@mui/material';
-import { createBrowserRouter, Link, RouterProvider } from 'react-router';
+import { createTheme, CssBaseline, ThemeProvider } from '@mui/material';
+import { createBrowserRouter, RouterProvider } from 'react-router';
 
-import Dashboard from './components/Page/Dashboard/Dashboard';
+import Login from './components/Page/Auth/Login';
+import Dashboard from './components/Page/Dashboard';
 
 const theme = createTheme({
   typography: {
@@ -22,12 +17,7 @@ const router = createBrowserRouter([
   },
   {
     path: '/login',
-    element: (
-      <Box>
-        <Typography variant="h1">Login</Typography>
-        <Link to={'/'}>Kembali ke Home</Link>
-      </Box>
-    ),
+    element: <Login />,
   },
 ]);
 
