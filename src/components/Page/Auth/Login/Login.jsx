@@ -8,9 +8,9 @@ import dayjs from 'dayjs';
 
 const Login = () => {
   const { control, watch } = useForm({
-    defaultValues:{
-      filterDate: dayjs()
-    }
+    defaultValues: {
+      filterDate: dayjs(),
+    },
   });
 
   const username = watch('username');
