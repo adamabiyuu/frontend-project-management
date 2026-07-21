@@ -4,15 +4,14 @@ import SidebarLayout from '../../layouts/SidebarLayout/SidebarLayout';
 // import SidebarLayout from '@/components/layouts/SidebarLayout';
 
 const Projects = () => {
-
   return (
-    <SidebarLayout 
-        pageTitle="Dashboard"
-        breadcrumbs={[
-            {
-                label: 'Daftar Proyek',
-            }
-        ]}
+    <SidebarLayout
+      pageTitle="Dashboard"
+      breadcrumbs={[
+        {
+          label: 'Daftar Proyek',
+        },
+      ]}
     >
       <Paper
         sx={{

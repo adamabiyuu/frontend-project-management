@@ -5,7 +5,6 @@ function stringToColor(string) {
   let hash = 0;
   let i;
 
-   
   for (i = 0; i < string.length; i += 1) {
     hash = string.charCodeAt(i) + ((hash << 5) - hash);
   }
@@ -16,7 +15,6 @@ function stringToColor(string) {
     const value = (hash >> (i * 8)) & 0xff;
     color += `00${value.toString(16)}`.slice(-2);
   }
-   
 
   return color;
 }
@@ -26,7 +24,7 @@ function stringAvatar(name) {
     .split(' ')
     .map((n) => n[0])
     .join('');
-    // .join('').trim();
+  // .join('').trim();
 
   const displayName =
     initialName.length >= 2 ? initialName.substring(0, 2) : initialName;

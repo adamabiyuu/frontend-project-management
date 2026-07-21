@@ -17,7 +17,7 @@ const DetailProject = () => {
         },
         {
           label: 'Agency Software Engineering',
-        }
+        },
       ]}
     >
       <Paper

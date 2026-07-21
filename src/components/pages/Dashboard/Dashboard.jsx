@@ -11,11 +11,11 @@ const Dashboard = () => {
 
   return (
     <SidebarLayout pageTitle="Dashboard">
-      <Paper 
-        sx={{ 
+      <Paper
+        sx={{
           padding: 2,
           background: colors.lightBlue[100],
-         }}
+        }}
       >
         <Typography>Menampilkan dashboard di sini</Typography>
       </Paper>
