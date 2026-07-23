@@ -10,9 +10,11 @@ import TextField from '@/components/ui/Forms/TextField';
 import services from '@/services';
 import session from '@/utils/session';
 
-const loginFormSchema = Yup.object({
-  email: Yup.string().email().required(),
-  password: Yup.string().required(),
+const loginSchema = Yup.object({
+  email: Yup.string()
+    .required('Email harus diisi')
+    .email('Format email tidak valid'),
+  password: Yup.string().required('Password harus diisi'),
 });
 
 const Login = () => {
@@ -21,7 +23,7 @@ const Login = () => {
   const navigate = useNavigate();
 
   const { control, handleSubmit } = useForm({
-    resolver: yupResolver(loginFormSchema),
+    resolver: yupResolver(loginSchema),
   });
 
   const onSubmit = async (formValues) => {
@@ -61,8 +63,14 @@ const Login = () => {
             component={'form'}
             onSubmit={handleSubmit(onSubmit)}
           >
-            <TextField label={'Email'} control={control} name="email" />
             <TextField
+              id={'email'}
+              label={'Email'}
+              control={control}
+              name="email"
+            />
+            <TextField
+              id={'password'}
               label={'Password'}
               control={control}
               name="password"
