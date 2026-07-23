@@ -16,10 +16,15 @@ import datetime from '@/utils/datetime';
 import TextField from '@/components/ui/Forms/TextField';
 import { useForm, useWatch } from 'react-hook-form';
 import { useDebounce } from 'use-debounce';
+import Pagination from '@/components/ui/Pagination';
 
 const Projects = () => {
   const [isLoading, setLoading] = useState(false);
   const [boardsData, setBoardsData] = useState([]);
+
+  const [boardsMeta, setBoardsMeta] = useState({});
+
+  const [page, setPage] = useState(1);
 
   const { control } = useForm({
     defaultValues: {
@@ -39,13 +44,16 @@ const Projects = () => {
       setLoading(true);
       const response = await services.boards.myBoards({
         filter: debounceSearch,
+        limit:1,
+        page
       });
       setBoardsData(response.data.data);
+      setBoardsMeta(response.data.meta);
       setLoading(false);
     };
 
     fetchBoardsData();
-  }, [debounceSearch]);
+  }, [debounceSearch, page]);
 
   return (
     <SidebarLayout
@@ -102,6 +110,12 @@ const Projects = () => {
             },
           },
         ]}
+      />
+      <Pagination
+        count={boardsMeta.total_pages}
+        onChange={(e, page) => {
+          setPage(page);
+        }}
       />
     </SidebarLayout>
   );
