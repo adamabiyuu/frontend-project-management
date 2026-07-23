@@ -1,4 +1,13 @@
-import { TextField as BaseTextField, Box } from '@mui/material';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
+import {
+  FormControl,
+  FormHelperText,
+  IconButton,
+  InputAdornment,
+  InputLabel,
+  OutlinedInput,
+} from '@mui/material';
+import { useEffect, useState } from 'react';
 import { Controller } from 'react-hook-form';
 
 const TextField = ({
@@ -7,27 +16,64 @@ const TextField = ({
   label,
   defaultValue,
   helperText,
+  secureText = false,
+  id,
   ...props
 }) => {
+  const [showPassword, setShowPassword] = useState(false);
+
+  useEffect(() => {
+    setShowPassword(secureText);
+  }, [secureText]);
+
   return (
     <Controller
+      name={name}
       control={control}
       defaultValue={defaultValue}
-      name={name}
-      render={({ field: { value, onChange, onBlur } }) => {
+      render={({
+        field: { value, onChange, onBlur },
+        fieldState: { error },
+      }) => {
         return (
-          <Box sx={{ marginBottom: 2 }}>
-            <BaseTextField
+          <FormControl
+            sx={{
+              marginBottom: 2,
+            }}
+            variant="outlined"
+          >
+            <InputLabel htmlFor={id}>{label}</InputLabel>
+            <OutlinedInput
               {...props}
+              id={id}
+              type={showPassword ? 'password' : 'text'}
               fullWidth
               label={label}
               variant="outlined"
               value={value}
-              onChange={onChange}
               onBlur={onBlur}
-              helperText={helperText}
+              onChange={onChange}
+              // helperText={error?.message ? error?.message : helperText}
+              error={Boolean(error)}
+              endAdornment={
+                secureText ? (
+                  <InputAdornment position="end">
+                    <IconButton
+                      onClick={() => setShowPassword(!showPassword)}
+                      edge="end"
+                    >
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                ) : (
+                  <></>
+                )
+              }
             />
-          </Box>
+            <FormHelperText error={Boolean(error)}>
+              {error?.message ? error?.message : helperText}
+            </FormHelperText>
+          </FormControl>
         );
       }}
     />
@@ -35,3 +81,44 @@ const TextField = ({
 };
 
 export default TextField;
+
+// import { TextField as BaseTextField, Box, FormControl, InputLabel, OutlinedInput } from '@mui/material';
+// import { Controller } from 'react-hook-form';
+
+// const TextField = ({
+//   control,
+//   name,
+//   label,
+//   defaultValue,
+//   helperText,
+//   id,
+//   ...props
+// }) => {
+//   return (
+//     <Controller
+//       control={control}
+//       defaultValue={defaultValue}
+//       name={name}
+//       render={({ field: { value, onChange, onBlur }, fieldState: { error } }) => {
+//         return (
+//           <FormControl sx={{ marginBottom: 2 }} variant="outlined">
+//             <InputLabel htmlFor={id}>{label}</InputLabel>
+//             <OutlinedInput
+//               {...props}
+//               fullWidth
+//               label={label}
+//               variant="outlined"
+//               value={value}
+//               onChange={onChange}
+//               onBlur={onBlur}
+//               helperText={helperText}
+//               error={Boolean(error)}
+//             />
+//           </FormControl>
+//         );
+//       }}
+//     />
+//   );
+// };
+
+// export default TextField;
