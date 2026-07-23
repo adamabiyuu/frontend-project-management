@@ -1,13 +1,3 @@
-// import network from '@/utils/network';
-
-// const boards = {
-//   async myBoards() {
-//     return network.get('/api/v1/boards');
-//   },
-// };
-
-// export default boards;
-
 import network from "@/utils/network";
 
 const boards = {
@@ -19,3 +9,14 @@ const boards = {
 };
 
 export default boards;
+
+
+// import network from '@/utils/network';
+
+// const boards = {
+//   async myBoards() {
+//     return network.get('/api/v1/boards');
+//   },
+// };
+
+// export default boards;

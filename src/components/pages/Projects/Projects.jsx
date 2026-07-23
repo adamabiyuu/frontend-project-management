@@ -14,9 +14,8 @@ import services from '@/services';
 import Table from '@/components/ui/Table';
 import datetime from '@/utils/datetime';
 import TextField from '@/components/ui/Forms/TextField';
-import { useForm } from 'react-hook-form';
-// import { useForm, useWatch } from 'react-hook-form';
-// import { useDebounce } from 'use-debounce';
+import { useForm, useWatch } from 'react-hook-form';
+import { useDebounce } from 'use-debounce';
 
 const Projects = () => {
   const [isLoading, setLoading] = useState(false);
@@ -28,27 +27,25 @@ const Projects = () => {
     },
   });
 
-  // const watchSearch = useWatch({
-  //   control,
-  //   name: 'search',
-  // });
+  const watchSearch = useWatch({
+    control,
+    name: 'search',
+  });
 
-  // const [debounceSearch] = useDebounce(watchSearch, 1000);
+  const [debounceSearch] = useDebounce(watchSearch, 1000);
 
   useEffect(() => {
     const fetchBoardsData = async () => {
       setLoading(true);
-      const response = await services.boards.myBoards();
-       console.log(response);
-      // const response = await services.boards.myBoards({
-      //   filter: debounceSearch,
-      // });
+      const response = await services.boards.myBoards({
+        filter: debounceSearch,
+      });
       setBoardsData(response.data.data);
       setLoading(false);
     };
 
     fetchBoardsData();
-  }, []);
+  }, [debounceSearch]);
 
   return (
     <SidebarLayout
