@@ -2,11 +2,14 @@ import {
   Box,
   Button,
   // colors,
-  Link,
+  // Link,
   // Paper,
   Stack,
   // Typography,
 } from '@mui/material';
+
+// import { colors } from '@mui/material';
+import { Link } from 'react-router';
 
 import SidebarLayout from '@/components/layouts/SidebarLayout';
 import { useEffect, useState } from 'react';
@@ -422,36 +425,6 @@ export default Projects;
 //           setPage(page);
 //         }}
 //       />
-//     </SidebarLayout>
-//   );
-// };
-
-// export default Projects;
-
-// cadangan
-
-// import { colors, Paper, Typography } from '@mui/material';
-
-// import SidebarLayout from '@/components/layouts/SidebarLayout';
-
-// const Projects = () => {
-//   return (
-//     <SidebarLayout
-//       pageTitle="Dashboard"
-//       breadcrumbs={[
-//         {
-//           label: 'Daftar Proyek',
-//         },
-//       ]}
-//     >
-//       <Paper
-//         sx={{
-//           padding: 2,
-//           background: colors.lightBlue[100],
-//         }}
-//       >
-//         <Typography>Menampilkan daftar proyek di sini</Typography>
-//       </Paper>
 //     </SidebarLayout>
 //   );
 // };
