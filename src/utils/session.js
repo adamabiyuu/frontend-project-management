@@ -1,5 +1,4 @@
-import { ROLE_ADMIN, SESSION_KEY } from "./constants";
-
+import { ROLE_ADMIN, SESSION_KEY } from './constants';
 
 const session = {
   setSession(user) {

@@ -4,10 +4,9 @@ import { useLoaderData } from 'react-router';
 import useDetailProjectContext from '../hooks/useDetailProjectContext';
 
 const DetailProjectContainer = () => {
-
-  const detailProjectData = useLoaderData();  
+  const detailProjectData = useLoaderData();
   const detailProjectContext = useDetailProjectContext();
-    
+
   return (
     <SidebarLayout
       pageTitle={`${detailProjectData.title} (${detailProjectContext.getProjectInitials})`}
@@ -20,9 +19,7 @@ const DetailProjectContainer = () => {
           label: detailProjectData.title,
         },
       ]}
-    >
-
-    </SidebarLayout>
+    ></SidebarLayout>
   );
 };
 
