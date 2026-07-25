@@ -22,7 +22,7 @@ const useCreateNewList = () => {
       title: '',
       board_public_id: detailProjectData.public_id,
     },
-    resolve: yupResolver(createListSchema),
+    resolver: yupResolver(createListSchema),
   });
 
   const handleOpenFormCreateList = () => setShowFormCreateList(true);
