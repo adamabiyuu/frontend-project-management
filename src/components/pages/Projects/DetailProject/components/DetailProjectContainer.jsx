@@ -4,6 +4,7 @@ import { useLoaderData } from 'react-router';
 import useDetailProjectContext from '../hooks/useDetailProjectContext';
 import { Stack } from '@mui/material';
 import CreateNewList from './CreateNewList';
+import ListSortableItem from './ListSortableItem';
 
 const DetailProjectContainer = () => {
   const detailProjectData = useLoaderData();
@@ -23,16 +24,16 @@ const DetailProjectContainer = () => {
       ]}
     >
       <Stack
-        sx={{
-          height: 800,
-          justifyContent: 'flex-start',
-          alignItems: 'flex-start',
-          direction: 'row',
-          gap: 2,
-          overflowX: 'auto',
-          pb: 5,
-        }}
+        direction={'row'}
+        justifyContent={'flex-start'}
+        alignItems={'flex-start'}
+        gap={2}
+        pb={5}
+        sx={{ 
+          overflowX: 'auto'
+         }}
       >
+        <ListSortableItem />
         <CreateNewList />
       </Stack>
     </SidebarLayout>
