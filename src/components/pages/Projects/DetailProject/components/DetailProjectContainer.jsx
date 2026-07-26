@@ -2,6 +2,8 @@ import SidebarLayout from '@/components/layouts/SidebarLayout';
 // import { colors, Paper, Typography } from '@mui/material';
 import { useLoaderData } from 'react-router';
 import useDetailProjectContext from '../hooks/useDetailProjectContext';
+import { Stack } from '@mui/material';
+import CreateNewList from './CreateNewList';
 
 const DetailProjectContainer = () => {
   const detailProjectData = useLoaderData();
@@ -19,7 +21,21 @@ const DetailProjectContainer = () => {
           label: detailProjectData.title,
         },
       ]}
-    ></SidebarLayout>
+    >
+      <Stack
+        sx={{
+          height: 800,
+          justifyContent: 'flex-start',
+          alignItems: 'flex-start',
+          direction: 'row',
+          gap: 2,
+          overflowX: 'auto',
+          pb: 5,
+        }}
+      >
+        <CreateNewList />
+      </Stack>
+    </SidebarLayout>
   );
 };
 

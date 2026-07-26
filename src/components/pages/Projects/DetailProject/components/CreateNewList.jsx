@@ -1,45 +1,19 @@
 import TextField from '@/components/ui/Forms/TextField';
-import { Box, Button, Paper, Stack } from '@mui/material';
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { Box, Button, Stack } from '@mui/material';
+import useCreateNewList from '../hooks/useCreateNewList';
+import { PlusOne } from '@mui/icons-material';
 
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as Yup from 'yup';
-import services from '@/services';
-import { useLoaderData } from 'react-router';
-import useDetailProjectContext from '../hooks/useDetailProjectContext';
-
-const createListSchema = Yup.object({
-  title: Yup.string().required(),
-});
-
-// eslint-disable-next-line jsx-a11y/no-autofocus
 const CreateNewList = () => {
-  const detailProjectData = useLoaderData();
-  const detailProjectContext = useDetailProjectContext();
+  const {
+    showFormCreateList,
+    handleOpenFormCreateList,
+    control,
+    handleSubmit,
+    handleCloseFormCreateList,
+    onSubmitCreateList,
+    isLoadingCreateList,
+  } = useCreateNewList();
 
-  const [isLoadingCreateList, setLoadingCreateList] = useState(false);
-  const [showFormCreateList, setShowFormCreateList] = useState(false);
-
-  const { control, handleSubmit, reset } = useForm({
-    defaultValues: {
-      title: '',
-      board_public_id: detailProjectData.public_id,
-    },
-    resolver: yupResolver(createListSchema),
-  });
-
-  const handleOpenFormCreateList = () => setShowFormCreateList(true);
-  const handleCloseFormCreateList = () => setShowFormCreateList(false);
-
-  const onSubmitCreateList = async (values) => {
-    setLoadingCreateList(true);
-    await services.lists.create(values);
-    setLoadingCreateList(false);
-    reset();
-    handleCloseFormCreateList();
-    await detailProjectContext.fetchBoardLists();
-  };
   return (
     <Box
       sx={{
@@ -49,7 +23,7 @@ const CreateNewList = () => {
       }}
     >
       {showFormCreateList ? (
-        <Paper
+        <Box
           sx={{ p: 1 }}
           component={'form'}
           onSubmit={handleSubmit(onSubmitCreateList)}
@@ -82,7 +56,7 @@ const CreateNewList = () => {
               Batal
             </Button>
           </Stack>
-        </Paper>
+        </Box>
       ) : (
         <Button
           fullWidth
@@ -90,6 +64,7 @@ const CreateNewList = () => {
           type="button"
           variant="contained"
           onClick={handleOpenFormCreateList}
+          startIcon={<PlusOne />}
           disableElevation
         >
           Buat daftar tugas
@@ -101,6 +76,7 @@ const CreateNewList = () => {
 
 export default CreateNewList;
 
+// cadangan
 // import TextField from '@/components/ui/Forms/TextField';
 // import { Box, Button, Paper, Stack } from '@mui/material';
 // import { useState } from 'react';
