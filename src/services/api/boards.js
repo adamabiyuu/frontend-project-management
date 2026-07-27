@@ -30,9 +30,9 @@ const boards = {
   async getMembers(boardId) {
     return network.get(`/api/v1/boards/${boardId}/members`);
   },
-  async remove(boardId) {
-    return network.delete(`/api/v1/boards/${boardId}`);
-  },
+  // async remove(boardId) {
+  //   return network.delete(`/api/v1/boards/${boardId}`);
+  // },
 };
 
 export default boards;
