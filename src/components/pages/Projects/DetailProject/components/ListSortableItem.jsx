@@ -1,19 +1,64 @@
-import { Check, Close, Delete } from '@mui/icons-material';
-import { Box, colors, IconButton, Stack, Typography } from '@mui/material';
-import useListSortableItem from '../hooks/useListSortableItem';
+import { useDroppable } from '@dnd-kit/core';
+// import useDetailProjectContext from '../hooks/useDetailProjectContext';
+import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
+import {
+  Box,
+  colors,
+  IconButton,
+  Paper,
+  Stack,
+  Typography,
+} from '@mui/material';
+import { Check, Close, Delete } from '@mui/icons-material';
 import TaskItems from './TaskItems';
+import CreateNewTask from './CreateNewTask';
+import { DRAG_CARD, DRAG_LIST } from '@/utils/constants';
+// import { DRAG_CARD } from '@/utils/constants';
+// import services from '@/services';
+import useListSortableItem from '../hooks/useListSortableItem';
 
 const ListSortableItem = ({ id, item }) => {
+  // const detailProjectContext = useDetailProjectContext();
+
+  // const taskItems = detailProjectContext.getTaskItemsByListId(item.public_id);
+
+  const {
+    setNodeRef: setNodeRefDroppable,
+    isOver,
+    active,
+    // over,
+  } = useDroppable({
+    id,
+    data: {
+      ...item,
+      type: DRAG_LIST,
+    },
+  });
+  const { attributes, listeners, setNodeRef, transform, transition } =
+    useSortable({
+      id,
+      data: {
+        ...item,
+        type: DRAG_LIST,
+      },
+    });
+
+  const style = {
+    transform: CSS.Translate.toString(transform),
+    transition,
+  };
+
   const {
     sortable,
     droppable,
-    // detailProjectContext,
+    detailProjectContext,
     handleDeleteList,
     isShowConfirmDelete,
     setShowConfirmDelete,
     taskItems,
   } = useListSortableItem({ id, item });
+
   const renderDeleteList = () => {
     if (isShowConfirmDelete) {
       return (
@@ -35,11 +80,10 @@ const ListSortableItem = ({ id, item }) => {
         </Stack>
       );
     }
-
     return (
       <IconButton
         size="small"
-        color="error"
+        color={'error'}
         onClick={() => setShowConfirmDelete(true)}
       >
         <Delete />
@@ -47,11 +91,16 @@ const ListSortableItem = ({ id, item }) => {
     );
   };
 
+  // const handleDeleteList = (listId) => async (e) => {
+  //   await services.lists.remove(listId);
+  //   await detailProjectContext.fetchBoardLists();
+  // };
+
   return (
     <Box
       sx={{
-        transform: CSS.Translate.toString(sortable.transform),
-        transition: sortable.transition,
+        ...style,
+
         flexBasis: 300,
         flexShrink: 0,
         overflowX: 'hidden',
@@ -65,6 +114,7 @@ const ListSortableItem = ({ id, item }) => {
       {...sortable.listeners}
     >
       <Stack
+        ref={setNodeRefDroppable}
         direction={'row'}
         justifyContent={'space-between'}
         alignItems={'center'}
@@ -75,9 +125,11 @@ const ListSortableItem = ({ id, item }) => {
           borderTopRightRadius: 1,
           borderTopLeftRadius: 1,
         }}
+        {...attributes}
+        {...listeners}
       >
         <Stack direction={'row'} alignItems={'center'} gap={1}>
-          <Typography variant="body1" fontWeight={600}>
+          <Typography variant="body1" fontWeight={'bold'}>
             {item.title}
           </Typography>
           <Stack
@@ -90,14 +142,51 @@ const ListSortableItem = ({ id, item }) => {
               backgroundColor: colors.orange[100],
             }}
           >
-            <Typography variant="caption" fontWeight={600}>
+            <Typography variant="caption" fontWeight={'bold'}>
               {taskItems.length}
             </Typography>
           </Stack>
         </Stack>
+
+        {/* <IconButton
+          size="small"
+          color={'error'}
+          onClick={handleDeleteList(item.public_id)}
+        >
+          <DeleteForever />
+        </IconButton> */}
         {renderDeleteList()}
       </Stack>
-      <TaskItems listDroppable={droppable} listItem={item} />
+      <Box
+        sx={{
+          height: 850,
+          pb: 2,
+          overflowY: 'auto',
+          scrollbarWidth: 'thin',
+          '&::-webkit-scrollbar': {
+            width: '6px',
+          },
+          '&::-webkit-scrollbar-thumb': {
+            backgroundColor: colors.grey[400],
+            borderRadius: '3px',
+          },
+          '&::-webkit-scrollbar-track': {
+            backgroundColor: colors.grey[200],
+          },
+        }}
+      >
+        {isOver &&
+          active.data.current.type === DRAG_CARD &&
+          active.data.current.listId !== item.public_id && (
+            <Box p={1}>
+              <Paper elevation={3} sx={{ p: 1, bgcolor: colors.grey[200] }}>
+                test
+              </Paper>
+            </Box>
+          )}
+        <TaskItems listId={item.public_id} />
+        <CreateNewTask listId={item.public_id} />
+      </Box>
     </Box>
   );
 };
@@ -105,77 +194,60 @@ const ListSortableItem = ({ id, item }) => {
 export default ListSortableItem;
 
 // cadangan
-// import { useDroppable } from '@dnd-kit/core';
-// import useDetailProjectContext from '../hooks/useDetailProjectContext';
-// import { useSortable } from '@dnd-kit/sortable';
+// import { Check, Close, Delete } from '@mui/icons-material';
+// import { Box, colors, IconButton, Stack, Typography } from '@mui/material';
+// import useListSortableItem from '../hooks/useListSortableItem';
 // import { CSS } from '@dnd-kit/utilities';
-// import {
-//   Box,
-//   colors,
-//   IconButton,
-//   Paper,
-//   Stack,
-//   Typography,
-// } from '@mui/material';
-// import { DeleteForever } from '@mui/icons-material';
 // import TaskItems from './TaskItems';
-// import CreateNewTask from './CreateNewTask';
-// import { DRAG_CARD, DRAG_LIST } from '@/utils/constants';
-// import services from '@/services';
 
 // const ListSortableItem = ({ id, item }) => {
-//   const detailProjectContext = useDetailProjectContext();
-
-//   const taskItems = detailProjectContext.getTaskItemsByListId(item.public_id);
-
 //   const {
-//     setNodeRef: setNodeRefDroppable,
-//     isOver,
-//     active,
-//     // over,
-//   } = useDroppable({
-//     id,
-//     data: {
-//       ...item,
-//       type: DRAG_LIST,
-//     },
-//   });
-//   const { attributes, listeners, setNodeRef, transform, transition } =
-//     useSortable({
-//       id,
-//       data: {
-//         ...item,
-//         type: DRAG_LIST,
-//       },
-//     });
+//     sortable,
+//     droppable,
+//     detailProjectContext,
+//     handleDeleteList,
+//     isShowConfirmDelete,
+//     setShowConfirmDelete,
+//     taskItems,
+//   } = useListSortableItem({ id, item });
+//   const renderDeleteList = () => {
+//     if (isShowConfirmDelete) {
+//       return (
+//         <Stack direction={'row'} gap={1}>
+//           <IconButton
+//             size="small"
+//             color={'success'}
+//             onClick={handleDeleteList(item.public_id)}
+//           >
+//             <Check />
+//           </IconButton>
+//           <IconButton
+//             size="small"
+//             color={'default'}
+//             onClick={() => setShowConfirmDelete(false)}
+//           >
+//             <Close />
+//           </IconButton>
+//         </Stack>
+//       );
+//     }
 
-//   const style = {
-//     transform: CSS.Translate.toString(transform),
-//     transition,
-//   };
-
-// //   const renderDeleteList = () => {
-// //     return (
-// //       <IconButton
-// //         size="small"
-// //         color={'error'}
-// //         onClick={handleDeleteList(item.public_id)}
-// //       >
-// //         <DeleteForever />
-// //       </IconButton>
-// //     )
-// //   }
-
-//   const handleDeleteList = (listId) => async (e) => {
-//     await services.lists.remove(listId);
-//     await detailProjectContext.fetchBoardLists();
+//     return (
+//       <IconButton
+//         size="small"
+//         color="error"
+//         onClick={() => setShowConfirmDelete(true)}
+//       >
+//         <Delete />
+//       </IconButton>
+//     );
 //   };
 
 //   return (
 //     <Box
 //       sx={{
-//         ...style,
-
+//         transform: CSS.Translate.toString(sortable.transform),
+//         transition: sortable.transition,
 //         flexBasis: 300,
 //         flexShrink: 0,
 //         overflowX: 'hidden',
@@ -184,10 +256,11 @@ export default ListSortableItem;
 //         mx: -0.5,
 //         background: colors.grey[50],
 //       }}
-//       ref={setNodeRef}
+//       ref={sortable.setNodeRef}
+//       {...sortable.attributes}
+//       {...sortable.listeners}
 //     >
 //       <Stack
-//         ref={setNodeRefDroppable}
 //         direction={'row'}
 //         justifyContent={'space-between'}
 //         alignItems={'center'}
@@ -198,11 +271,9 @@ export default ListSortableItem;
 //           borderTopRightRadius: 1,
 //           borderTopLeftRadius: 1,
 //         }}
-//         {...attributes}
-//         {...listeners}
 //       >
 //         <Stack direction={'row'} alignItems={'center'} gap={1}>
-//           <Typography variant="body1" fontWeight={'bold'}>
+//           <Typography variant="body1" fontWeight={600}>
 //             {item.title}
 //           </Typography>
 //           <Stack
@@ -215,50 +286,14 @@ export default ListSortableItem;
 //               backgroundColor: colors.orange[100],
 //             }}
 //           >
-//             <Typography variant="caption" fontWeight={'bold'}>
+//             <Typography variant="caption" fontWeight={600}>
 //               {taskItems.length}
 //             </Typography>
 //           </Stack>
 //         </Stack>
-
-//         <IconButton
-//           size="small"
-//           color={'error'}
-//           onClick={handleDeleteList(item.public_id)}
-//         >
-//           <DeleteForever />
-//         </IconButton>
+//         {renderDeleteList()}
 //       </Stack>
-//       <Box
-//         sx={{
-//           height: 850,
-//           pb: 2,
-//           overflowY: 'auto',
-//           scrollbarWidth: 'thin',
-//           '&::-webkit-scrollbar': {
-//             width: '6px',
-//           },
-//           '&::-webkit-scrollbar-thumb': {
-//             backgroundColor: colors.grey[400],
-//             borderRadius: '3px',
-//           },
-//           '&::-webkit-scrollbar-track': {
-//             backgroundColor: colors.grey[200],
-//           },
-//         }}
-//       >
-//         {isOver &&
-//           active.data.current.type === DRAG_CARD &&
-//           active.data.current.listId !== item.public_id && (
-//             <Box p={1}>
-//               <Paper elevation={3} sx={{ p: 1, bgcolor: colors.grey[200] }}>
-//                 test
-//               </Paper>
-//             </Box>
-//           )}
-//         <TaskItems listId={item.public_id} />
-//         <CreateNewTask listId={item.public_id} />
-//       </Box>
+//       <TaskItems listDroppable={droppable} listItem={item} />
 //     </Box>
 //   );
 // };
