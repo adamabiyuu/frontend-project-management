@@ -183,8 +183,8 @@ const ListSortableItem = ({ id, item }) => {
                 test
               </Paper>
             </Box>
-          )}
-        <TaskItems listId={item.public_id} />
+          )} 
+        <TaskItems listDroppable={droppable} listItem={item} listId={item.public_id} />
         <CreateNewTask listId={item.public_id} />
       </Box>
     </Box>

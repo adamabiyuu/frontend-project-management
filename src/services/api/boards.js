@@ -22,7 +22,7 @@ const boards = {
     return network.get(`/api/v1/boards/${boardId}/lists`);
   },
   async updateListPosition(boardId, data) {
-    return network.put(`/api/v1/boards/${boardId}/positions`, data);
+    return network.put(`/api/v1/boards/${boardId}/position`, data);
   },
   async addMember(boardId, userIds) {
     return network.post(`/api/v1/boards/${boardId}/members`, userIds);

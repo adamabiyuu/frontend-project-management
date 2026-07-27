@@ -3,10 +3,12 @@ import {
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
 import { Box, colors, Paper, Stack, Typography } from '@mui/material';
-import useTaskItems from '../hooks/useTaskItems';
+// import useTaskItems from '../hooks/useTaskItems';
 import TaskSortableItem from './TaskSortableItem';
 import { DRAG_CARD } from '@/utils/constants';
 import CreateNewTask from './CreateNewTask';
+import useTaskItems from '../hooks/useTaskItem';
+// import CreateNewTask from './CreateNewTask';
 
 const TaskItems = ({ listDroppable, listItem }) => {
   const { active } = listDroppable;
