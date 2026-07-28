@@ -67,12 +67,15 @@ const useModalAddNewMember = () => {
       const userIds = usersData.map((item) => item.public_id);
       await services.boards.addMember(detailProjectData.public_id, userIds);
       snackbar.toggleSnackbar(true, 'Berhasil menambahkan member baru !');
-      handleClose();
+      // handleClose();
     } catch (error) {
       console.log(error);
       snackbar.toggleSnackbar(false, 'Gagal menambahkan member baru !');
     } finally {
+      detailProjectContext.setIsOpenModalAddNewMember(false);
       setLoadingAddMember(false);
+      await detailProjectContext.fetchBoardMembers();
+      
     }
   };
 
