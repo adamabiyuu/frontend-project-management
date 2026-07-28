@@ -75,7 +75,6 @@ const useModalAddNewMember = () => {
       detailProjectContext.setIsOpenModalAddNewMember(false);
       setLoadingAddMember(false);
       await detailProjectContext.fetchBoardMembers();
-      
     }
   };
 

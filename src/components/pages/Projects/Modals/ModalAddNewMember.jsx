@@ -84,7 +84,7 @@ const ModalAddNewMember = () => {
   return (
     <Modal
       open={detailProjectContext.isOpenModalAddNewMember}
-    // open={true}
+      // open={true}
       handleClose={handleClose}
       title={'Tambah member'}
     >
