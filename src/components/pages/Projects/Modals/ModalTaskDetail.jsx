@@ -28,11 +28,6 @@ const ModalTaskDetail = () => {
   } = useModalTaskDetail();
 
   const renderTitle = () => {
-    if (editTitle) {
-        return (
-            <Box component={'form'} onSubmit={formTask.handleSubmit(onSubmit)}></Box>
-        )
-    }
     return (
       <Stack gap={2}>
         <Typography variant="h5" fontWeight={700}>
