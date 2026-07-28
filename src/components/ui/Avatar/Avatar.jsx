@@ -40,6 +40,9 @@ function stringAvatar(name) {
 const Avatar = ({ text, onClick }) => {
   const [anchorEl, setAnchorEl] = useState(null);
 
+  // Tambahkan ini dari gpt
+  const open = Boolean(anchorEl);
+
   const handlePopOverOpen = (e) => setAnchorEl(e.currentTarget);
   const handlePopOverClose = () => setAnchorEl(null);
 
