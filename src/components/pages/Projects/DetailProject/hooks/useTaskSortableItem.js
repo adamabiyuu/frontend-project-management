@@ -5,7 +5,7 @@ import { useSearchParams } from 'react-router';
 
 const useTaskSortableItem = ({ id, item, listId }) => {
   const [, setSearchParams] = useSearchParams();
-  
+
   const detailProjectContext = useDetailProjectContext();
 
   const {

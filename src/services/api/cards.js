@@ -10,13 +10,21 @@ const cards = {
   async getDetail(cardId) {
     return network.get(`/api/v1/cards/${cardId}`);
   },
-  async addAssignment(cardId, assignees) {
+  async addAssignees(cardId, assignees) {
     return network.post(`/api/v1/cards/${cardId}/assignees`, {
       user_id: assignees,
     });
   },
   async remove(cardId) {
     return network.delete(`/api/v1/cards/${cardId}`);
+  },
+  async uploadAttachment(cardId, payload) {
+    return network.post(`/api/v1/cards/${cardId}/attachments`, payload);
+  },
+  async deleteAttachment(cardId, attachmentId) {
+    return network.delete(
+      `/api/v1/cards/${cardId}/attachments/${attachmentId}`,
+    );
   },
 };
 
