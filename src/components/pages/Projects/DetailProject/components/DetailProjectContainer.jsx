@@ -4,8 +4,8 @@ import SidebarLayout from '@/components/layouts/SidebarLayout';
 import useDetailProjectContainer from '../hooks/useDetailProjectContainer';
 import ModalTaskDetail from '../../Modals/ModalTaskDetail';
 import { useState } from 'react';
-import DashboardPanel from './DashboardPanel';
 import ProjectBoardPanel from './ProjectBoardPanel';
+import Dashboard from './Dashboard';
 
 const DetailProjectContainer = () => {
 
@@ -44,7 +44,7 @@ const DetailProjectContainer = () => {
           {/* <DashboardPanel value={1} />
           <ProjectBoardPanel value={2} /> */}
           {
-            activeTab === 1 ? <DashboardPanel value={1} /> : <ProjectBoardPanel value={2} />
+            activeTab === 1 ? <Dashboard /> : <ProjectBoardPanel value={2} />
           }
         </TabContext>
       </SidebarLayout>

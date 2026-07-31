@@ -11,6 +11,7 @@ import { useLoaderData } from 'react-router';
 import services from '@/services';
 
 const defaultState = {
+  detailProjectData: {}, //gpt 
   activeDragItem: null,
   setActiveDragItem() {},
   updateTaskItemPosition: {},
@@ -219,6 +220,8 @@ const DetailProjectProvider = ({ children }) => {
   return (
     <DetailProjectContext.Provider
       value={{
+        detailProjectData, //gpt
+
         isLoadingBoardLists,
         updateTaskItemPosition,
         overDragItem,
